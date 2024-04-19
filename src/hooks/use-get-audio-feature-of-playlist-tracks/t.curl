@@ -1,6 +1,0 @@
-BQBy5HBARHPfDy8msKgXypjDj3CCnDvhw_QPSujzKiaCOH1XI5mxd888YwWa3jz7rl0zxp5daFvPnSiAzDo7KD1nHWNZmQ37rJYibVnftuNXTWtAXeh2pOW0Y9Par3iXgTH90Y9V-rAX7zlapkTG6AMRh1mKfWnYbSx00FTtcionDQN8tvkp3xNt
-"0inWEfsFk8ybCjvYcvE2kE"
-"3A02f2nXSbpeY9uXHi7oMi"
-curl --request GET \
-  --url 'https://api.spotify.com/v1/audio-analysis/3A02f2nXSbpeY9uXHi7oMi' \
-  --header 'Authorization: Bearer BQBUc3Bf7t7tztddsBuj5EindnaAeeP2bO145Qit3EorydFZWEo3uVw3tHFV6h3q43igGyffT-RQeKy6GE3lTNgTFsKoEGg5VmGtfcTw2cGILyJIubvcmJCoavmTpIZmGRP13hXeyBmCI-UP7YEoBjoWyD7VSphJqQq0ZwXowSBonl8iE6utK2Be'
