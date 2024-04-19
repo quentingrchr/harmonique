@@ -48,6 +48,7 @@ export function trackWithAudioFeaturesToTableTrackEntry(
       image: track.image,
       artists: track.artists,
       title: track.title,
+      external_spotify_url: track.external_spotify_url,
     },
     key: {
       value: track.key.value,

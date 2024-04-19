@@ -6,7 +6,7 @@ export interface TrackWithAudioFeatures {
   };
   artists: string[];
   title: string;
-  track_href: string;
+  external_spotify_url: string;
   key: {
     value: TonalKey;
     confidence?: number;

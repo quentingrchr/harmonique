@@ -49,7 +49,8 @@ export function useGetAudioFeatureOfPlaylistTracks(
             (artist) => artist.name
           ),
           title: playlistTracks[playlistTrackInfoIndex].track.name,
-          track_href: playlistTracks[playlistTrackInfoIndex].track.href,
+          external_spotify_url:
+            playlistTracks[playlistTrackInfoIndex].track.external_urls.spotify,
           key: {
             value: pitchToKey(audioFeature.key),
           },

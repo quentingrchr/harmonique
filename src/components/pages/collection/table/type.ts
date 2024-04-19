@@ -12,6 +12,7 @@ export interface TableTrackEntry {
     };
     artists: string[];
     title: string;
+    external_spotify_url: string;
   };
   key: {
     value: TonalKey;

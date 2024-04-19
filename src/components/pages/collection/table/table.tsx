@@ -1,3 +1,4 @@
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import {
   ColumnDef,
   flexRender,
@@ -22,7 +23,7 @@ function Track({
   title: string;
 }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 px-5">
       <Image
         className="h-9 w-9"
         width={100}
@@ -30,9 +31,13 @@ function Track({
         src={image.url || DEFAULT_ARTWORK}
         alt={image.alt}
       />
-      <div className="flex flex-col justify-between py-[2px]">
-        <p className="text-sm font-semibold leading-none">{title}</p>
-        <p className="text-sm font-thin leading-none">{artists.join(", ")}</p>
+      <div className="flex flex-col justify-between py-[2px] overflow-hidden ">
+        <p className="text-sm font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full">
+          {title}
+        </p>
+        <p className="text-sm font-thin leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full">
+          {artists.join(", ")}
+        </p>
       </div>
     </div>
   );
@@ -45,6 +50,21 @@ function TextCell({ text, percent }: { text: string; percent?: number }) {
       {percent && (
         <Badge percent={percent} title={"This is a percentage of accuracy"} />
       )}
+    </div>
+  );
+}
+
+function ExternalLink({ url }: { url: string }) {
+  return (
+    <div className="bg-gray-900 text-white rounded-full w-auto inline-block p-3 cursor-pointer relative">
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="absolute inset-0"
+        title="Open in Spotify"
+      ></a>
+      <ArrowTopRightOnSquareIcon className="h-4 w-4" />
     </div>
   );
 }
@@ -69,24 +89,6 @@ function Badge({ percent, title }: { percent: number; title?: string }) {
     >
       {percent}%
     </span>
-  );
-}
-function Item({
-  image,
-  artists,
-  title,
-}: {
-  image: { url: string; alt: string };
-  artists: string[];
-  title: string;
-}) {
-  return (
-    <div className="flex border-b-[1px] py-3.5 px-3 border-b-neutral-800 items-center gap-8">
-      <Track image={image} artists={artists} title={title} />
-      <TextCell text="C#" percent={13} />
-      <TextCell text="Minor" percent={90} />
-      <TextCell text="128" />
-    </div>
   );
 }
 
@@ -126,6 +128,19 @@ const columns: ColumnDef<TableTrackEntry>[] = [
       const value = props.cell.getValue<TableTrackEntry["tempo"]>();
       const roundedValue = Math.round(value.value).toFixed(0);
       return <TextCell text={roundedValue} />;
+    },
+  },
+  {
+    accessorKey: "track.external_spotify_url",
+    header: "",
+    cell: (props) => {
+      const value =
+        props.cell.getValue<TableTrackEntry["track"]["external_spotify_url"]>();
+      return (
+        <div className="w-full flex justify-end px-5">
+          <ExternalLink url={value} />
+        </div>
+      );
     },
   },
 ];

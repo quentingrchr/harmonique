@@ -206,7 +206,7 @@ export interface AudioFeaturesObject {
   speechiness: number; // Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music
   tempo: number; // The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration
   time_signature: number; // An estimated overall time signature of a track. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure)
-  track_href: string; // A link to the Web API endpoint providing full details of the track
+  external_spotify_url: string; // A link to the Web API endpoint providing full details of the track
   type: "audio_features"; // The object type
   uri: string; // The Spotify URI for the track
   valence: number; // A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)
