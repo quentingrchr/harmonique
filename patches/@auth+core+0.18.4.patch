@@ -1,0 +1,17 @@
+diff --git a/node_modules/@auth/core/providers/spotify.js b/node_modules/@auth/core/providers/spotify.js
+index e3341c6..7da1518 100644
+--- a/node_modules/@auth/core/providers/spotify.js
++++ b/node_modules/@auth/core/providers/spotify.js
+@@ -51,7 +51,11 @@ export default function Spotify(options) {
+         id: "spotify",
+         name: "Spotify",
+         type: "oauth",
+-        authorization: "https://accounts.spotify.com/authorize?scope=user-read-email",
++        // authorization: "https://accounts.spotify.com/authorize",
++        authorization: {
++            url: "https://accounts.spotify.com/authorize",
++            params: { scope: "user-read-email" },
++        },
+         token: "https://accounts.spotify.com/api/token",
+         userinfo: "https://api.spotify.com/v1/me",
+         profile(profile) {
