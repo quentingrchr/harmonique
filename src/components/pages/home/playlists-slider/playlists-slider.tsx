@@ -25,10 +25,17 @@ function SliderSkeleton() {
   const numberOfSlides = 20;
   const slides = Array.from({ length: numberOfSlides }, (_, i) => i);
   return (
-    <div className="w-screen overflow-hidden flex min-h-[200px] gap-[50px] pl-[50px] animate-pulse">
+    <div className="w-screen overflow-hidden flex gap-[10px] pl-[50px] animate-pulse ">
       {slides.map((slide) => (
-        <div key={slide} className="flex">
-          <div className="flex gap-2 w-[200px] h-[200px] bg-gray-400 "></div>
+        <div
+          key={slide}
+          className="flex flex-col items-center justify-center gap-2 p-3 box-content"
+        >
+          <div className="flex gap-2 w-[200px] h-[200px] bg-gray-400 rounded-md"></div>
+          <div className="flex flex-col gap-2 w-full h-[46px] rounded-md relative">
+            <div className="h-[14px] top-[4px] w-2/3 bg-gray-400 rounded-md absolute"></div>
+            <div className="w-1/4 h-[10px] bg-gray-400 rounded-md opacity-80 absolute top-[32px]"></div>
+          </div>
         </div>
       ))}
     </div>
@@ -78,8 +85,10 @@ export default function PlaylistsSlider({
                       className="w-[200px] h-[200px] object-cover transition-all duration-100 rounded-md group-hover:scale-105"
                     />
                   </div>
-                  <div className="flex flex-col w-full overflow-hidden text-ellipsis gap-0.5">
-                    <p className="text-white text opacity-9">{item.name}</p>
+                  <div className="flex flex-col w-full overflow-hidden text-ellipsis gap-0.5 min-h-[46px]">
+                    <p className="text-white text opacity-9 whitespace-nowrap w-full text-ellipsis overflow-hidden">
+                      {item.name}
+                    </p>
                     {item.description && (
                       <p className="text-white text-sm opacity-60 whitespace-nowrap w-full text-ellipsis overflow-hidden">
                         {item.description}
