@@ -1,96 +1,28 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
+import useCollectionFilters from "@/hooks/use-collection-filters";
+import { getKeySignatureNotation } from "@/utils/tonal-keys";
 import {
   ColumnDef,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import cn from "classnames";
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ACTIONS } from "../../../../hooks/use-collection-filters/reducer";
+import {
+  ColumnFilterKeySignature,
+  ColumnFilterTempo,
+  ColumnFiltersState,
+} from "../../../../hooks/use-collection-filters/type";
+import ExternalLink from "./external-link";
+import Filters from "./filters/filters";
+import Pagination from "./pagination";
+import TextCell from "./text-cell";
+import Track from "./track";
 import { TableTrackEntry } from "./type";
-
-const DEFAULT_ARTWORK = "/images/default-artwork.png";
-function Track({
-  image,
-  artists,
-  title,
-}: {
-  image: {
-    url: string;
-    alt: string;
-  };
-  artists: string[];
-  title: string;
-}) {
-  return (
-    <div className="flex gap-3 px-5">
-      <Image
-        className="h-9 w-9"
-        width={100}
-        height={100}
-        src={image.url || DEFAULT_ARTWORK}
-        alt={image.alt}
-      />
-      <div className="flex flex-col justify-between py-[2px] overflow-hidden ">
-        <p className="text-sm font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full">
-          {title}
-        </p>
-        <p className="text-sm font-thin leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full">
-          {artists.join(", ")}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function TextCell({ text, percent }: { text: string; percent?: number }) {
-  return (
-    <div className="flex flex-row items-center gap-3">
-      <p className="text-lg font-thin leading-none">{text}</p>
-      {percent && (
-        <Badge percent={percent} title={"This is a percentage of accuracy"} />
-      )}
-    </div>
-  );
-}
-
-function ExternalLink({ url }: { url: string }) {
-  return (
-    <div className="bg-gray-900 text-white rounded-full w-auto inline-block p-3 cursor-pointer relative">
-      <a
-        href={url}
-        target="_blank"
-        rel="noreferrer"
-        className="absolute inset-0"
-        title="Open in Spotify"
-      ></a>
-      <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-    </div>
-  );
-}
-
-function Badge({ percent, title }: { percent: number; title?: string }) {
-  function getBadgeColor(percent: number) {
-    if (percent <= 10) {
-      return "bg-[#290000] text-red-600 border-red-600";
-    } else if (percent < 30) {
-      return "bg-[#231B01] text-yellow-600 border-yellow-600";
-    } else if (percent >= 30) {
-      return "bg-[#151816] text-green-600 border-green-600";
-    }
-  }
-  return (
-    <span
-      title={title}
-      className={cn(
-        "text-[10px] px-1.5 py-1 border rounded border-1",
-        getBadgeColor(percent)
-      )}
-    >
-      {percent}%
-    </span>
-  );
-}
 
 interface Props {
   data: TableTrackEntry[];
@@ -104,21 +36,56 @@ const columns: ColumnDef<TableTrackEntry>[] = [
       const value = props.cell.getValue<TableTrackEntry["track"]>();
       return <Track {...value} />;
     },
-  },
-  {
-    accessorKey: "key",
-    header: "Key",
-    cell: (props) => {
-      const value = props.cell.getValue<TableTrackEntry["key"]>();
-      return <TextCell text={value.value} />;
+    sortingFn: (a, b) => {
+      const titleA = a.original.track.title;
+      const titleB = b.original.track.title;
+      return titleA.localeCompare(titleB);
     },
   },
   {
-    accessorKey: "mode",
-    header: "Mode",
+    accessorKey: "keySignature",
+    header: "Key",
+    filterFn: (
+      row,
+      columnId,
+      filterValue: ColumnFilterKeySignature["value"]
+    ) => {
+      const cellValue = row.original.keySignature;
+
+      if (!filterValue) {
+        return true;
+      } else {
+        const filterKey = filterValue.key;
+        const filterMode = filterValue.mode;
+        if (filterKey && filterMode) {
+          return (
+            cellValue.key.value === filterKey &&
+            cellValue.mode.value === filterMode
+          );
+        } else if (filterKey) {
+          return cellValue.key.value === filterKey;
+        } else if (filterMode) {
+          return cellValue.mode.value === filterMode;
+        } else {
+          return true;
+        }
+      }
+    },
     cell: (props) => {
-      const value = props.cell.getValue<TableTrackEntry["mode"]>();
-      return <TextCell text={value.value} />;
+      const keyValue =
+        props.cell.getValue<TableTrackEntry["keySignature"]>().key.value;
+      const modeValue =
+        props.cell.getValue<TableTrackEntry["keySignature"]>().mode.value;
+      return <TextCell text={getKeySignatureNotation(keyValue, modeValue)} />;
+    },
+    sortingFn: (a, b) => {
+      const aKey = a.original.keySignature.key.value;
+      const bKey = b.original.keySignature.key.value;
+      const aMode = a.original.keySignature.mode.value;
+      const bMode = b.original.keySignature.mode.value;
+      const aKeyAndMode = `${aKey} ${aMode}`;
+      const bKeyAndMode = `${bKey} ${bMode}`;
+      return aKeyAndMode.localeCompare(bKeyAndMode);
     },
   },
   {
@@ -128,6 +95,19 @@ const columns: ColumnDef<TableTrackEntry>[] = [
       const value = props.cell.getValue<TableTrackEntry["tempo"]>();
       const roundedValue = Math.round(value.value).toFixed(0);
       return <TextCell text={roundedValue} />;
+    },
+    sortingFn: (a, b) => {
+      return a.original.tempo.value - b.original.tempo.value;
+    },
+    filterFn: (row, columnId, filterValue: ColumnFilterTempo["value"]) => {
+      const cellValue = row.original.tempo;
+      if (!filterValue) {
+        return true;
+      } else {
+        const min = filterValue.min;
+        const max = filterValue.max;
+        return cellValue.value >= min && cellValue.value <= max;
+      }
     },
   },
   {
@@ -144,45 +124,132 @@ const columns: ColumnDef<TableTrackEntry>[] = [
     },
   },
 ];
-
 export default function Table({ data }: Props) {
+  const [sortingState, setSortingState] = useState<SortingState>([]);
+  const { filters, dispatch } = useCollectionFilters();
+
   const table = useReactTable({
-    columns,
     data,
+    columns,
+    state: {
+      sorting: sortingState,
+      columnFilters: filters,
+    },
+    initialState: {
+      pagination: {
+        pageSize: 25,
+      },
+    },
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSortingState,
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel<ColumnFiltersState>(),
   });
+
+  console.log(table.getState().columnFilters);
+  // access the column filters state from the table instance
+
+  useEffect(() => {
+    console.log({
+      filters,
+    });
+  }, [filters]);
+
   return (
     <div className="mt-7">
-      <table className="w-full table-fixed">
-        <thead>
-          <tr>
-            {table.getHeaderGroups()[0].headers.map((header) => (
-              <th
-                className="text-left text-sm py-4 border-t border-b border-neutral-800 font-light opacity-90"
-                key={header.id}
-              >
-                {header.column.columnDef.header as string}
-              </th>
+      <Filters
+        addKeyFilter={(key) =>
+          dispatch({
+            type: ACTIONS.ADD_ACCIDENTAL_KEY_FILTER,
+            payload: { key },
+          })
+        }
+        addModeFilter={(mode) =>
+          dispatch({ type: ACTIONS.ADD_MODE_FILTER, payload: { mode } })
+        }
+        resetKeySignatureFilter={() =>
+          dispatch({ type: ACTIONS.CLEAR_KEY_SIGNATURE_FILTER })
+        }
+        clearKeyFilter={() =>
+          dispatch({
+            type: ACTIONS.CLEAR_KEY_SIGNATURE_FILTER,
+            payload: { id: "key" },
+          })
+        }
+        clearModeFilter={() =>
+          dispatch({
+            type: ACTIONS.CLEAR_KEY_SIGNATURE_FILTER,
+            payload: { id: "mode" },
+          })
+        }
+        addTempoFilter={(tempoRange) => {
+          dispatch({
+            type: ACTIONS.ADD_TEMPO_FILTER,
+            payload: tempoRange,
+          });
+        }}
+        resetTempoFilter={() => {
+          dispatch({
+            type: ACTIONS.REMOVE_FILTER,
+            payload: { filter: "tempo" },
+          });
+        }}
+        filters={filters}
+      />
+
+      <div className="mt-7">
+        <table className="w-full table-fixed">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="text-left text-sm py-4 border-t border-b border-neutral-800 font-light opacity-90"
+                  >
+                    <div
+                      className="flex items-center gap-2 select-none cursor-pointer"
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                      {{
+                        asc: <span className="pl-2">↑</span>,
+                        desc: <span className="pl-2">↓</span>,
+                      }[header.column.getIsSorted() as string] ?? null}
+                    </div>
+                  </th>
+                ))}
+              </tr>
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className="border-b-[1px] px-3 border-b-neutral-800 gap-8"
-            >
-              {row.getVisibleCells().map((cell) => {
-                return (
-                  <td key={cell.id} className=" py-3.5">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr
+                key={row.id}
+                className="border-b-[1px] px-3 border-b-neutral-800 gap-8"
+              >
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <td key={cell.id} className=" py-3.5">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Pagination<TableTrackEntry> table={table} />
+      </div>
     </div>
   );
 }

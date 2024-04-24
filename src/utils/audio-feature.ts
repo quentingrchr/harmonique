@@ -1,12 +1,9 @@
 import { TableTrackEntry } from "@/components/pages/collection/table/type";
-import {
-  TonalKey,
-  TonalMode,
-  TrackWithAudioFeatures,
-} from "@/hooks/use-get-audio-feature-of-playlist-tracks/type";
+import { TrackWithAudioFeatures } from "@/hooks/use-get-audio-feature-of-playlist-tracks/type";
+import { TonalAccidentalKey, TonalMode } from "@/types";
 
 export function pitchToKey(pitch: number) {
-  const keys: TonalKey[] = [
+  const keys: TonalAccidentalKey[] = [
     "C",
     "C#",
     "D",
@@ -50,13 +47,13 @@ export function trackWithAudioFeaturesToTableTrackEntry(
       title: track.title,
       external_spotify_url: track.external_spotify_url,
     },
-    key: {
-      value: track.key.value,
-      confidence: 0.9,
-    },
-    mode: {
-      value: track.mode.value,
-      confidence: 0.9,
+    keySignature: {
+      key: {
+        value: track.key.value,
+      },
+      mode: {
+        value: track.mode.value,
+      },
     },
     tempo: {
       value: track.tempo.value,

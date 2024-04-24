@@ -54,7 +54,7 @@ export default function Header({ user, signOut }: Props) {
               </DropdownMenu.Trigger>
               <DropdownMenu.Portal />
               <DropdownMenu.Content
-                className="bg-gray-900 absolute top-0 -translate-x-[100%] translate-y-[4px] px-4 py-2.5 flex flex-col gap-2 border border-neutral-900"
+                className="bg-gray-900 absolute top-0 -translate-x-[100%] translate-y-[4px] px-4 py-2.5 flex flex-col gap-2 border border-neutral-900 z-50"
                 sideOffset={5}
                 side="bottom"
               >

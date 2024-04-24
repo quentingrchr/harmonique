@@ -1,11 +1,6 @@
 import { PlaylistObject } from "@/libs/spotify/types";
 
-// @todo add test
-// -test for playlist with no tracks
-// -test for playlist with 1 artist
-// -test for playlist with 2 artists
-// -test for playlist with 3 artists
-// -test for playlist with 1 track or less than 3
+
 export function getFeaturedArtistsFromPlaylistObject(
   playlist: PlaylistObject
 ): string[] {

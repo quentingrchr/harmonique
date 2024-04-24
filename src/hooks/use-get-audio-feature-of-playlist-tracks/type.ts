@@ -1,3 +1,5 @@
+import { TonalAccidentalKey, TonalMode } from "@/types";
+
 export interface TrackWithAudioFeatures {
   id: string;
   image: {
@@ -8,7 +10,7 @@ export interface TrackWithAudioFeatures {
   title: string;
   external_spotify_url: string;
   key: {
-    value: TonalKey;
+    value: TonalAccidentalKey;
     confidence?: number;
   };
   mode: {
@@ -20,18 +22,3 @@ export interface TrackWithAudioFeatures {
     confidence?: number;
   };
 }
-
-export type TonalKey =
-  | "C"
-  | "C#"
-  | "D"
-  | "D#"
-  | "E"
-  | "F"
-  | "F#"
-  | "G"
-  | "G#"
-  | "A"
-  | "A#"
-  | "B";
-export type TonalMode = "Major" | "Minor";

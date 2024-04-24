@@ -1,7 +1,4 @@
-import {
-  TonalKey,
-  TonalMode,
-} from "@/hooks/use-get-audio-feature-of-playlist-tracks/type";
+import { TonalAccidentalKey, TonalMode } from "@/types";
 
 export interface TableTrackEntry {
   id: string;
@@ -14,13 +11,15 @@ export interface TableTrackEntry {
     title: string;
     external_spotify_url: string;
   };
-  key: {
-    value: TonalKey;
-    confidence?: number;
-  };
-  mode: {
-    value: TonalMode;
-    confidence?: number;
+  keySignature: {
+    key: {
+      value: TonalAccidentalKey;
+      confidence?: number;
+    };
+    mode: {
+      value: TonalMode;
+      confidence?: number;
+    };
   };
   tempo: {
     value: number;

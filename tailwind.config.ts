@@ -31,6 +31,9 @@ const config: Config = {
         "muted-text": "#919191",
         brand: "#FFC107",
       },
+      gridTemplateColumns: {
+        "14": "repeat(14, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],
