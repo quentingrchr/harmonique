@@ -1,7 +1,10 @@
+import Button from "@/components/shared/button";
 import useCollectionFilters from "@/hooks/use-collection-filters";
 import { getKeySignatureNotation } from "@/utils/tonal-keys";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import {
   ColumnDef,
+  Row,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -247,27 +250,64 @@ export default function Table({ data }: Props) {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-b-[1px] px-3 border-b-neutral-800 gap-8"
-              >
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <td key={cell.id} className=" py-3.5">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+            <Rows
+              rows={table.getRowModel().rows}
+              resetFilters={() => {
+                dispatch({ type: ACTIONS.RESET_FILTERS });
+              }}
+            />
           </tbody>
         </table>
         <Pagination<TableTrackEntry> table={table} />
       </div>
     </div>
   );
+}
+
+function Rows({
+  rows,
+  resetFilters,
+}: {
+  rows: Row<TableTrackEntry>[];
+  resetFilters: () => void;
+}) {
+  if (rows.length === 0) {
+    return (
+      <tr>
+        <td
+          className="py-10 text-centerw-full justify-center items-center"
+          colSpan={4}
+        >
+          <div className="w-full flex flex-col items-center justify-center gap-6">
+            <MagnifyingGlassIcon className="w-7 h-7" />
+            <div className="flex flex-col items-center justify-center gap-1">
+              <h2 className="text-lg font-bold">No results found</h2>
+              <p className="text-sm font-light opacity-80">
+                Try adjusting your filters
+              </p>
+            </div>
+            <Button onClick={resetFilters} size="sm" variant="outlineWhite">
+              Reset filters
+            </Button>
+          </div>
+        </td>
+      </tr>
+    );
+  }
+  return rows.map((row) => {
+    return (
+      <tr
+        key={row.id}
+        className="border-b-[1px] px-3 border-b-neutral-800 gap-8"
+      >
+        {row.getVisibleCells().map((cell) => {
+          return (
+            <td key={cell.id} className=" py-3.5">
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </td>
+          );
+        })}
+      </tr>
+    );
+  });
 }

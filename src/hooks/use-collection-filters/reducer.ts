@@ -2,7 +2,7 @@ import { TonalAccidentalKey, TonalMode } from "@/types";
 import { ColumnFilterKeySignature, ColumnFiltersState } from "./type";
 
 export const ACTIONS = {
-  RESET_FILTER: "RESET_FILTER",
+  RESET_FILTERS: "RESET_FILTERS",
   ADD_ACCIDENTAL_KEY_FILTER: "ADD_ACCIDENTAL_KEY_FILTER",
   ADD_MODE_FILTER: "ADD_MODE_FILTER",
   ADD_TEMPO_FILTER: "ADD_TEMPO_FILTER",
@@ -34,7 +34,7 @@ export interface TempoFilterAction {
 }
 
 export interface ResetFilterAction {
-  type: typeof ACTIONS.RESET_FILTER;
+  type: typeof ACTIONS.RESET_FILTERS;
 }
 
 export interface ClearKeySignatureFilterAction {
@@ -73,7 +73,7 @@ export function reducer(
   action: ReducerAction
 ): ColumnFiltersState {
   switch (action.type) {
-    case ACTIONS.RESET_FILTER:
+    case ACTIONS.RESET_FILTERS:
       return [];
 
     case ACTIONS.ADD_ACCIDENTAL_KEY_FILTER:

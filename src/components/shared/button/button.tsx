@@ -12,9 +12,14 @@ export const buttonCva = cva("hover:cursor-pointer rounded-md", {
     variant: {
       primary:
         "bg-brand text-white disabled:bg-gray-900 disabled:text-white/50",
+
+      outline: "border border-brand text-brand disabled:text-gray-900/50",
+
+      outlineWhite: "border border-white text-white disabled:text-white/50",
     },
     size: {
       sm: "text-xs px-3 py-1.5",
+      md: "text-sm px-4 py-2",
     },
   },
   defaultVariants: {
