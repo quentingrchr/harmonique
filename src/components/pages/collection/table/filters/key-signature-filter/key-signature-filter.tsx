@@ -1,7 +1,8 @@
+import Button from "@/components/shared/button";
 import { TonalAccidentalKey, TonalMode } from "@/types";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import cn from "classnames";
+import ClearButton from "../shared/clear-button";
+import DropdownButton from "../shared/dropdown-button";
 import AccidentalKeysButtons from "./accidental-keys-buttons";
 import TonalModeButtons from "./tonal-mode-buttons";
 
@@ -35,25 +36,10 @@ const KeySignatureFilter = ({
   };
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button
-          className={cn(
-            "group flex border items-center justify-between border-gray-900 rounded-md py-2 px-3 text-sm text-white bg-black gap-2 outline-none focus:border-white overflow-hidden",
-            {
-              "bg-brand": keyValue || modeValue,
-            }
-          )}
-        >
-          <span>{getFilterLabel()}</span>
-          <span
-            className={cn(
-              "rotate-180 transform transition-all duration-150 group-data-[state=open]:rotate-0"
-            )}
-          >
-            <ChevronDownIcon className="h-4 w-4" />
-          </span>
-        </button>
-      </DropdownMenu.Trigger>
+      <DropdownButton
+        isActive={Boolean(keyValue || modeValue)}
+        label={getFilterLabel()}
+      />
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
@@ -80,18 +66,13 @@ const KeySignatureFilter = ({
             {/* <hr className="border-red-500 w-full" /> */}
             <div className="flex justify-between px-4">
               <DropdownMenu.Item asChild>
-                <button
-                  disabled={!keyValue && !modeValue}
-                  className="text-white text-xs hover:cursor-pointer disabled:cursor-not-allowed underline disabled:opacity-50"
+                <ClearButton
                   onClick={resetKeySignatureFilter}
-                >
-                  Clear
-                </button>
+                  disabled={!keyValue && !modeValue}
+                />
               </DropdownMenu.Item>
               <DropdownMenu.Item asChild>
-                <button className="text-white text-xs hover:cursor-pointer px-3 py-1.5 bg-brand rounded-md disabled:bg-gray-900 disabled:text-white/50">
-                  Close
-                </button>
+                <Button onClick={() => {}}>Close</Button>
               </DropdownMenu.Item>
             </div>
           </footer>

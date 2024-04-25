@@ -10,10 +10,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ACTIONS } from "../../../../hooks/use-collection-filters/reducer";
 import {
   ColumnFilterKeySignature,
+  ColumnFilterSearch,
   ColumnFilterTempo,
   ColumnFiltersState,
 } from "../../../../hooks/use-collection-filters/type";
@@ -40,6 +41,18 @@ const columns: ColumnDef<TableTrackEntry>[] = [
       const titleA = a.original.track.title;
       const titleB = b.original.track.title;
       return titleA.localeCompare(titleB);
+    },
+    filterFn: (row, columnId, filterValue: ColumnFilterSearch["value"]) => {
+      const cellValueTitle = row.original.track.title.toLocaleLowerCase();
+      const artists = row.original.track.artists.join(" ").toLocaleLowerCase();
+      if (!filterValue) {
+        return true;
+      } else {
+        const hasArtistMatch = artists.includes(filterValue);
+        const hasTitleMatch = cellValueTitle.includes(filterValue);
+
+        return hasArtistMatch || hasTitleMatch;
+      }
     },
   },
   {
@@ -147,15 +160,6 @@ export default function Table({ data }: Props) {
     getFilteredRowModel: getFilteredRowModel<ColumnFiltersState>(),
   });
 
-  console.log(table.getState().columnFilters);
-  // access the column filters state from the table instance
-
-  useEffect(() => {
-    console.log({
-      filters,
-    });
-  }, [filters]);
-
   return (
     <div className="mt-7">
       <Filters
@@ -193,6 +197,20 @@ export default function Table({ data }: Props) {
           dispatch({
             type: ACTIONS.REMOVE_FILTER,
             payload: { filter: "tempo" },
+          });
+        }}
+        addSearchFilter={(value) => {
+          dispatch({
+            type: ACTIONS.ADD_SEARCH_FILTER,
+            payload: {
+              value,
+            },
+          });
+        }}
+        resetSearchFilter={() => {
+          dispatch({
+            type: ACTIONS.REMOVE_FILTER,
+            payload: { filter: "track" },
           });
         }}
         filters={filters}

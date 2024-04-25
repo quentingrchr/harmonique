@@ -1,9 +1,11 @@
+import Button from "@/components/shared/button";
 import { TempoFilterValue } from "@/hooks/use-collection-filters/type";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import cn from "classnames";
 import { useState } from "react";
+import ClearButton from "../shared/clear-button";
+import DropdownButton from "../shared/dropdown-button";
 
 function InputText(props: React.InputHTMLAttributes<HTMLInputElement>) {
   const { className, ...rest } = props;
@@ -11,7 +13,7 @@ function InputText(props: React.InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...rest}
       className={cn(
-        "bg-gray-900 border border-gray-700 text-white rounded-md px-2 py-1.5 focus:border-brand outline-none",
+        "bg-gray-900 border border-gray-700 text-white rounded-md px-2 py-1.5 focus:border-brand outline-none placeholder:text-muted-text",
         className
       )}
     />
@@ -21,14 +23,14 @@ function InputText(props: React.InputHTMLAttributes<HTMLInputElement>) {
 export default function TempoFilter({
   filterValue,
   setFilterValue,
-  resetTempoFilter,
+  resetFilter,
 }: {
   filterValue: {
     min: number | null;
     max: number | null;
   };
   setFilterValue: (value: TempoFilterValue) => void;
-  resetTempoFilter: () => void;
+  resetFilter: () => void;
 }) {
   const [type, setType] = useState<"exact" | "range">("exact");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -125,25 +127,7 @@ export default function TempoFilter({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button
-          className={cn(
-            "group flex border items-center justify-between border-gray-900 rounded-md py-2 px-3 text-sm text-white bg-black gap-2 outline-none focus:border-white overflow-hidden",
-            {
-              "bg-brand": getTempoValue(),
-            }
-          )}
-        >
-          <span>{getFilterLabel()}</span>
-          <span
-            className={cn(
-              "rotate-180 transform transition-all duration-150 group-data-[state=open]:rotate-0"
-            )}
-          >
-            <ChevronDownIcon className="h-4 w-4" />
-          </span>
-        </button>
-      </DropdownMenu.Trigger>
+      <DropdownButton isActive={!!getTempoValue()} label={getFilterLabel()} />
       <DropdownMenu.Content
         sideOffset={5}
         className="bg-gray-950 rounded-xl flex flex-col z-50"
@@ -237,21 +221,24 @@ export default function TempoFilter({
         </div>
         <footer className="pb-4 pt-4 border-white/10 border-t">
           <DropdownMenu.Separator />
-          {/* <hr className="border-red-500 w-full" /> */}
           <div className="flex justify-between px-4">
-            <DropdownMenu.Item asChild>
-              <button
+            <DropdownMenu.Item
+              asChild
+              onSelect={(event) => event.preventDefault()}
+            >
+              <ClearButton
+                onClick={() => {
+                  resetFilter();
+                  setInternalTempoValue({ min: null, max: null });
+                }}
                 disabled={!internalTempoValue.max && !internalTempoValue.min}
-                className="text-white text-xs hover:cursor-pointer disabled:cursor-not-allowed underline disabled:opacity-50"
-                onClick={resetTempoFilter}
-              >
-                Clear
-              </button>
+              />
             </DropdownMenu.Item>
             <DropdownMenu.Item asChild>
-              <button
-                className="text-white text-xs hover:cursor-pointer px-3 py-1.5 bg-brand rounded-md disabled:bg-gray-900 disabled:text-white/50 disabled:cursor-not-allowed"
+              <Button
                 onClick={handleSubmit}
+                size={"sm"}
+                variant={"primary"}
                 disabled={
                   !!errorMessage ||
                   !internalTempoValue.max ||
@@ -259,7 +246,7 @@ export default function TempoFilter({
                 }
               >
                 Save
-              </button>
+              </Button>
             </DropdownMenu.Item>
           </div>
         </footer>

@@ -19,9 +19,17 @@ export interface ColumnFilterTempo extends BaseFilterColumn {
   value: TempoFilterValue;
 }
 
+export interface ColumnFilterSearch extends BaseFilterColumn {
+  id: "track";
+  value: string;
+}
+
 export type TempoFilterValue = {
   min: number;
   max: number;
 };
 
-export type ColumnFilter = ColumnFilterKeySignature | ColumnFilterTempo;
+export type ColumnFilter =
+  | ColumnFilterKeySignature
+  | ColumnFilterTempo
+  | ColumnFilterSearch;

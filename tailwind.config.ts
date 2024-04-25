@@ -27,6 +27,7 @@ const config: Config = {
           900: "#1E1E1E",
           950: "#121212",
         },
+
         text: "#FFFFFF",
         "muted-text": "#919191",
         brand: "#FFC107",

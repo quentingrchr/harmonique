@@ -1,4 +1,4 @@
-import Select from "@/components/shared/select/select";
+import Select from "@/components/shared/inputs/select/select";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useReactTable } from "@tanstack/react-table";
 

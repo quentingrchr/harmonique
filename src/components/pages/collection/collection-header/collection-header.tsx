@@ -25,9 +25,9 @@ export default function CollectionHeader({
   return (
     <div className="w-full">
       <div className="flex sm:flex-row flex-col gap-2 items-start">
-        <div className="w-full flex-shrink-0 sm:w-[92px] sm:h-[92px] ">
+        <div className="w-full flex-shrink-0 sm:w-[92px] sm:h-[92px] rounded-sm">
           <img
-            className="h-[100px] w-[100px]  object-cover object-center"
+            className="h-[100px] w-[100px]  object-cover object-center rounded-sm"
             src={cover}
             alt={`Cover artwork of ${title}`}
             height={500}

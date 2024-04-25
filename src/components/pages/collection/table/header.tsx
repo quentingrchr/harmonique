@@ -1,4 +1,4 @@
-import Select from "@/components/shared/select/select";
+import Select from "@/components/shared/inputs/select/select";
 import { useState } from "react";
 import { ColumnFiltersState } from "../../../../hooks/use-collection-filters/type";
 

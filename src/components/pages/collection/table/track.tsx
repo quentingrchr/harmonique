@@ -16,7 +16,7 @@ export default function Track({
   return (
     <div className="flex gap-3 px-5">
       <Image
-        className="h-9 w-9"
+        className="h-9 w-9 rounded-sm"
         width={100}
         height={100}
         src={image.url || DEFAULT_ARTWORK}

@@ -12,7 +12,7 @@ export default function CollectionHeader() {
   return (
     <div className="w-full">
       <div className="flex sm:flex-row flex-col gap-2 items-start">
-        <div className="w-full flex-shrink-0 sm:w-[92px] sm:h-[92px] bg-gray-500 animate-pulse "></div>
+        <div className="w-full flex-shrink-0 sm:w-[92px] sm:h-[92px] bg-gray-500 animate-pulse rounded-sm"></div>
 
         <div className="flex flex-col text-white h-full sm:min-h-[92px] justify-between">
           <div className="flex flex-col-reverse items-stretch justify-stretch gap-1">

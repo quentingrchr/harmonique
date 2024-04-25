@@ -94,7 +94,7 @@ function AccidentalTonalKeyButton(
   const { value, onClick, isSelected, ...rest } = props;
 
   return (
-    <DropdownMenu.Item asChild>
+    <DropdownMenu.Item asChild onSelect={(event) => event.preventDefault()}>
       <button
         onClick={onClick}
         className={cn(

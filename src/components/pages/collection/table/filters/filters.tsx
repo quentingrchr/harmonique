@@ -6,6 +6,7 @@ import {
 import { TonalAccidentalKey, TonalMode } from "@/types";
 import { ColumnFiltersState } from "@tanstack/react-table";
 import KeySignatureFilter from "./key-signature-filter/key-signature-filter";
+import SearchFilter from "./search-filter";
 import TempoFilter from "./tempo-filter";
 interface Props {
   filters: ColumnFiltersState;
@@ -16,6 +17,8 @@ interface Props {
   clearModeFilter: () => void;
   addTempoFilter: (tempoRange: TempoFilterValue) => void;
   resetTempoFilter: () => void;
+  addSearchFilter: (value: string) => void;
+  resetSearchFilter: () => void;
 }
 
 export default function Filters({
@@ -27,6 +30,8 @@ export default function Filters({
   clearModeFilter,
   addTempoFilter,
   resetTempoFilter,
+  addSearchFilter,
+  resetSearchFilter,
 }: Props) {
   const keySignatureFilter = filters.find(
     (filter) => filter.id === "keySignature"
@@ -37,25 +42,31 @@ export default function Filters({
     | undefined;
 
   return (
-    <div className="w-full flex h-auto gap-4">
-      <KeySignatureFilter
-        addKeyFilter={addKeyFilter}
-        addModeFilter={addModeFilter}
-        resetKeySignatureFilter={resetKeySignatureFilter}
-        keyValue={keySignatureFilter?.value?.key}
-        modeValue={keySignatureFilter?.value?.mode}
-        clearKeyFilter={clearKeyFilter}
-        clearModeFilter={clearModeFilter}
-      />
-      <TempoFilter
-        filterValue={
-          tempoFilterValue?.value || {
-            min: null,
-            max: null,
+    <div className="w-full flex justify-between ">
+      <div className="flex h-auto gap-4">
+        <KeySignatureFilter
+          addKeyFilter={addKeyFilter}
+          addModeFilter={addModeFilter}
+          resetKeySignatureFilter={resetKeySignatureFilter}
+          keyValue={keySignatureFilter?.value?.key}
+          modeValue={keySignatureFilter?.value?.mode}
+          clearKeyFilter={clearKeyFilter}
+          clearModeFilter={clearModeFilter}
+        />
+        <TempoFilter
+          filterValue={
+            tempoFilterValue?.value || {
+              min: null,
+              max: null,
+            }
           }
-        }
-        setFilterValue={addTempoFilter}
-        resetTempoFilter={resetTempoFilter}
+          setFilterValue={addTempoFilter}
+          resetFilter={resetTempoFilter}
+        />
+      </div>
+      <SearchFilter
+        addFilter={addSearchFilter}
+        resetFilter={resetSearchFilter}
       />
     </div>
   );

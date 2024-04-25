@@ -8,6 +8,7 @@ export const ACTIONS = {
   ADD_TEMPO_FILTER: "ADD_TEMPO_FILTER",
   CLEAR_KEY_SIGNATURE_FILTER: "CLEAR_KEY_SIGNATURE_FILTER",
   REMOVE_FILTER: "REMOVE_FILTER",
+  ADD_SEARCH_FILTER: "ADD_SEARCH_FILTER",
 } as const;
 
 export interface AccidentalKeyFilterAction {
@@ -47,8 +48,14 @@ export interface ClearKeySignatureFilterAction {
 export interface RemoveFilterAction {
   type: typeof ACTIONS.REMOVE_FILTER;
   payload: {
-    filter: "keySignature" | "tempo";
-    // | 'search'
+    filter: "keySignature" | "tempo" | "track";
+  };
+}
+
+export interface SearchFilterAction {
+  type: typeof ACTIONS.ADD_SEARCH_FILTER;
+  payload: {
+    value: string;
   };
 }
 
@@ -58,7 +65,8 @@ export type ReducerAction =
   | TempoFilterAction
   | ResetFilterAction
   | ClearKeySignatureFilterAction
-  | RemoveFilterAction;
+  | RemoveFilterAction
+  | SearchFilterAction;
 
 export function reducer(
   state: ColumnFiltersState,
@@ -170,6 +178,15 @@ export function reducer(
 
     case ACTIONS.REMOVE_FILTER:
       return state.filter((filter) => filter.id !== action.payload.filter);
+
+    case ACTIONS.ADD_SEARCH_FILTER:
+      return [
+        ...state,
+        {
+          id: "track",
+          value: action.payload.value,
+        },
+      ];
 
     default:
       return state;
