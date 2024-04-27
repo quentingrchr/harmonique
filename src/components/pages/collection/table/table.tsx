@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ACTIONS } from "../../../../hooks/use-collection-filters/reducer";
 import {
   ColumnFilterKeySignature,
@@ -48,11 +48,12 @@ const columns: ColumnDef<TableTrackEntry>[] = [
     filterFn: (row, columnId, filterValue: ColumnFilterSearch["value"]) => {
       const cellValueTitle = row.original.track.title.toLocaleLowerCase();
       const artists = row.original.track.artists.join(" ").toLocaleLowerCase();
-      if (!filterValue) {
+      const value = filterValue?.toLocaleLowerCase();
+      if (!value) {
         return true;
       } else {
-        const hasArtistMatch = artists.includes(filterValue);
-        const hasTitleMatch = cellValueTitle.includes(filterValue);
+        const hasArtistMatch = artists.includes(value);
+        const hasTitleMatch = cellValueTitle.includes(value);
 
         return hasArtistMatch || hasTitleMatch;
       }
@@ -163,6 +164,14 @@ export default function Table({ data }: Props) {
     getFilteredRowModel: getFilteredRowModel<ColumnFiltersState>(),
   });
 
+  const searchFilter = filters.find((filter) => filter.id === "track") as
+    | ColumnFilterSearch
+    | undefined;
+
+  useEffect(() => {
+    console.log(searchFilter);
+  }, [searchFilter]);
+
   return (
     <div className="mt-7">
       <Filters
@@ -219,7 +228,7 @@ export default function Table({ data }: Props) {
         filters={filters}
       />
 
-      <div className="mt-7">
+      <div className="mt-7 flex flex-col">
         <table className="w-full table-fixed">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -30,7 +30,8 @@ const config: Config = {
 
         text: "#FFFFFF",
         "muted-text": "#919191",
-        brand: "#FFC107",
+        // brand: "#FFC107",
+        brand: "#9333ea",
       },
       gridTemplateColumns: {
         "14": "repeat(14, minmax(0, 1fr))",

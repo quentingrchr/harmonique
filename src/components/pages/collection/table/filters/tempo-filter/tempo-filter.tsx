@@ -127,7 +127,9 @@ export default function TempoFilter({
 
   return (
     <DropdownMenu.Root>
-      <DropdownButton isActive={!!getTempoValue()} label={getFilterLabel()} />
+      <DropdownMenu.Trigger>
+        <DropdownButton isActive={!!getTempoValue()} label={getFilterLabel()} />
+      </DropdownMenu.Trigger>
       <DropdownMenu.Content
         sideOffset={5}
         className="bg-gray-950 rounded-xl flex flex-col z-50"

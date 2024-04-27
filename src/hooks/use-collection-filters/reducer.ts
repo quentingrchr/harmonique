@@ -180,13 +180,25 @@ export function reducer(
       return state.filter((filter) => filter.id !== action.payload.filter);
 
     case ACTIONS.ADD_SEARCH_FILTER:
-      return [
-        ...state,
-        {
-          id: "track",
-          value: action.payload.value,
-        },
-      ];
+      if (state.find((filter) => filter.id === "track")) {
+        return state.map((filter) => {
+          if (filter.id === "track") {
+            return {
+              ...filter,
+              value: action.payload.value,
+            };
+          }
+          return filter;
+        });
+      } else {
+        return [
+          ...state,
+          {
+            id: "track",
+            value: action.payload.value,
+          },
+        ];
+      }
 
     default:
       return state;

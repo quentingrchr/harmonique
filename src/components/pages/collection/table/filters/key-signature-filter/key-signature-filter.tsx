@@ -36,10 +36,12 @@ const KeySignatureFilter = ({
   };
   return (
     <DropdownMenu.Root>
-      <DropdownButton
-        isActive={Boolean(keyValue || modeValue)}
-        label={getFilterLabel()}
-      />
+      <DropdownMenu.Trigger>
+        <DropdownButton
+          isActive={Boolean(keyValue || modeValue)}
+          label={getFilterLabel()}
+        />
+      </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content

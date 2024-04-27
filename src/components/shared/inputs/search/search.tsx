@@ -10,18 +10,14 @@ export interface InputProps
 }
 
 const Search = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, clearValue, ...props }, ref) => {
+  ({ className, type, clearValue, onSearchSubmit, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false);
     const isNotEmpty = props.value;
     const shouldDisplayGlass = !clearValue ? true : !isNotEmpty;
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-      if (
-        props.onSearchSubmit &&
-        props.value &&
-        typeof props.value === "string"
-      ) {
-        props.onSearchSubmit(props.value);
+      if (onSearchSubmit && props.value && typeof props.value === "string") {
+        onSearchSubmit(props.value);
       }
     }
 
