@@ -6,21 +6,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-function Item({
-  label,
-  href,
-  isActive,
-}: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  label: string;
-  href: string;
-  isActive?: boolean;
-}) {
+function Item(
+  props: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    label: string;
+    href: string;
+    isActive?: boolean;
+  }
+) {
+  const { label, href, isActive, ...rest } = props;
   return (
     <Link
       href={href}
       className={cn("color-white text-base hover:text-brand cursor-pointer", {
         "opacity-100 text-brand": isActive,
       })}
+      {...rest}
     >
       {label}
     </Link>
@@ -37,8 +37,9 @@ const NavItems = [
     href: routes.ABOUT,
   },
   {
-    label: "Contact",
-    href: routes.CONTACT,
+    label: "Github",
+    href: routes.GITHUB,
+    target: "_blank",
   },
 ];
 

@@ -7,13 +7,25 @@ export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onSubmit"> {
   clearValue?: () => void;
   onSearchSubmit?: (value: string) => void;
+  variant?: "ghost" | "solid";
 }
 
 const Search = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, clearValue, onSearchSubmit, ...props }, ref) => {
+  (
+    {
+      className,
+      type,
+      clearValue,
+      onSearchSubmit,
+      variant = "solid",
+      onFocus,
+      onBlur,
+      ...props
+    },
+    ref
+  ) => {
     const [isFocused, setIsFocused] = React.useState(false);
     const isNotEmpty = props.value;
-    const shouldDisplayGlass = !clearValue ? true : !isNotEmpty;
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (onSearchSubmit && props.value && typeof props.value === "string") {
@@ -24,14 +36,27 @@ const Search = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <form
         className={cn(
-          "flex items-center bg-gray-900 px-3 py-1 h-9 rounded-md text-sm text-white border",
-          { "border-white": isFocused, "border-transparent": !isFocused }
+          "flex items-center px-3 py-1 h-9 rounded-md text-sm text-white border",
+          {
+            "border-white": isFocused,
+            "border-transparent": !isFocused && variant === "solid",
+            "bg-gray-700": variant === "solid",
+            "bg-transparent border-gray-900": variant === "ghost",
+          },
+          className
         )}
         onSubmit={handleSubmit}
       >
+        <MagnifyingGlassIcon className="size-4 mr-2" />
         <input
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+            setIsFocused(true);
+            onFocus && onFocus(e);
+          }}
+          onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+            setIsFocused(false);
+            onBlur && onBlur(e);
+          }}
           type={type}
           className={cn(
             "bg-transparent flex w-full transition-colors file:border-0 placeholder:text-muted-text focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
@@ -42,9 +67,6 @@ const Search = React.forwardRef<HTMLInputElement, InputProps>(
         />
         <button type="submit" className="sr-only"></button>
         <div className="size-4 relative">
-          {shouldDisplayGlass && (
-            <MagnifyingGlassIcon className="size-4  absolute" />
-          )}
           {isNotEmpty && clearValue && (
             <button onClick={clearValue} className="size-4 absolute">
               <XMarkIcon className="size-4" />

@@ -1,7 +1,9 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Session } from "next-auth";
 import Image from "next/image";
+import NextLink from "next/link";
 import Navigation from "./navigation";
+import Search from "./search";
 
 interface Props {
   user: NonNullable<Session["user"]>;
@@ -35,17 +37,17 @@ export default function Header({ user, signOut }: Props) {
   return (
     <header className="px-12 bg-gray-900 top-0 fixed w-full h-16 flex justify-between items-center border-b-neutral-600 border-b z-50">
       {/* Left side */}
-      <div className="flex justify-between items-center gap-20">
-        <Image src="/artwork.jpeg" alt="logo" height={30} width={30} />
+      <div className="flex justify-between items-center gap-10">
+        <NextLink href="/" passHref>
+          <Image src="/logo.png" alt="logo" height={34} width={34} />
+        </NextLink>
         <div className="flex items-center">
           <Navigation />
         </div>
       </div>
       {/* Right side */}
       <div className="flex items-center gap-6">
-        {/* <Search
-        userPlaylists={userPlaylists.length > 0 ? userPlaylists : undefined}
-        /> */}
+        <Search />
         {image && (
           <div className="flex items-center relative">
             <DropdownMenu.Root modal={false}>

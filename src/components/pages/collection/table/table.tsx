@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ACTIONS } from "../../../../hooks/use-collection-filters/reducer";
 import {
   ColumnFilterKeySignature,
@@ -167,10 +167,6 @@ export default function Table({ data }: Props) {
   const searchFilter = filters.find((filter) => filter.id === "track") as
     | ColumnFilterSearch
     | undefined;
-
-  useEffect(() => {
-    console.log(searchFilter);
-  }, [searchFilter]);
 
   return (
     <div className="mt-7">

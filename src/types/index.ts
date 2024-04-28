@@ -21,3 +21,4 @@ export type TonalAccidentalKey =
   | "B";
 export type TonalMode = "Major" | "Minor";
 export type TonalSignature = `${TonalAccidentalKey} ${TonalMode}`;
+

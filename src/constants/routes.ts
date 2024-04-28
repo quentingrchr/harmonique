@@ -1,7 +1,7 @@
 const routes = {
   HOME: "/",
   ABOUT: "/about",
-  CONTACT: "/contact",
+  GITHUB: "https://github.com/quentingrchr/harmonique",
 };
 
 export default routes;

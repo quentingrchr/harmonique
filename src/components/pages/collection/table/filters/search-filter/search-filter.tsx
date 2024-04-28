@@ -20,6 +20,7 @@ export default function SearchFilter({
         setSearchValue("");
       }}
       placeholder="Search for a song"
+      variant="ghost"
     />
   );
 }

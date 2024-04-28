@@ -98,8 +98,35 @@ export interface ArtistObject {
 }
 
 export interface SimplifiedAlbumObject {
+  id: string; // The Spotify ID for the album
   href: string; // A link to the Web API endpoint returning the full result of the request
-  // Other properties specific to SimplifiedAlbumObject if available
+  album_type: string; // The type of the album: one of 'album', 'single', or 'compilation'
+  total_tracks: number; // The total number of tracks in the album
+  available_markets: string[]; // A list of the countries in which the album can be played, identified by their ISO 3166-1 alpha-2 code
+  external_urls: {
+    // Known external URLs for this album
+    [key: string]: string;
+  };
+  images: Image[];
+  name: string; // The name of the album
+  release_date_precision: string; // The precision with which release_date value is known: 'year', 'month', or 'day'
+  release_date: string; // The date the album was first released
+  type: "album"; // The object type (only 'album' allowed)
+  restrictions: object | null; // Content restriction applied
+  uri: string; // Spotify URI for the album
+  artists: SimplifiedArtistObject[]; // The artists of the album
+}
+
+export interface SimplifiedArtistObject {
+  external_urls: {
+    // Known external URLs for this artist
+    [key: string]: string;
+  };
+  href: string; // A link to the Web API endpoint providing full details of the artist
+  id: string; // Spotify ID for the artist
+  name: string; // The name of the artist
+  type: "artist"; // The object type (only 'artist' allowed)
+  uri: string; // Spotify URI for the artist
 }
 
 export interface SimplifiedPlaylistObject {
@@ -245,5 +272,44 @@ export interface AudioAnalysisObject {
     synch_version: number; // The version of the synch
     rhythmstring: string; // A base64-encoded string of the rhythm
     rhythm_version: number; // The version of the rhythm
+  };
+}
+
+export interface SearchResponse {
+  tracks: {
+    href: string; // A link to the Web API endpoint returning the full result of the request
+    limit: number; // The maximum number of items in the response
+    next: string | null; // URL to the next page of items (null if none)
+    offset: number; // The offset of the items returned
+    previous: string | null; // URL to the previous page of items (null if none)
+    total: number; // The total number of items available to return
+    items: TrackObject[]; // Array of TrackObjects
+  };
+  artists: {
+    href: string; // A link to the Web API endpoint returning the full result of the request
+    limit: number; // The maximum number of items in the response
+    next: string | null; // URL to the next page of items (null if none)
+    offset: number; // The offset of the items returned
+    previous: string | null; // URL to the previous page of items (null if none)
+    total: number; // The total number of items available to return
+    items: ArtistObject[]; // Array of ArtistObjects
+  };
+  albums: {
+    href: string; // A link to the Web API endpoint returning the full result of the request
+    limit: number; // The maximum number of items in the response
+    next: string | null; // URL to the next page of items (null if none)
+    offset: number; // The offset of the items returned
+    previous: string | null; // URL to the previous page of items (null if none)
+    total: number; // The total number of items available to return
+    items: SimplifiedAlbumObject[]; // Array of SimplifiedAlbumObjects
+  };
+  playlists: {
+    href: string; // A link to the Web API endpoint returning the full result of the request
+    limit: number; // The maximum number of items in the response
+    next: string | null; // URL to the next page of items (null if none)
+    offset: number; // The offset of the items returned
+    previous: string | null; // URL to the previous page of items (null if none)
+    total: number; // The total number of items available to return
+    items: SimplifiedPlaylistObject[]; // Array of SimplifiedPlaylistObjects
   };
 }

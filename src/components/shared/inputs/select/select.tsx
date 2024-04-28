@@ -12,24 +12,29 @@ export interface SelectProps extends RadixSelect.SelectProps {
   tabIndex?: number;
   className?: string;
   withCheckIcons?: boolean;
+  bg?: "dark" | "lighter";
 }
 interface SelectItemProps extends RadixSelect.SelectItemProps {
   children?: React.ReactNode;
   isSelected?: boolean;
   withCheckIcons?: boolean;
+  bg: SelectProps["bg"];
 }
 
 const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ children, isSelected, withCheckIcons, ...rest }, forwardedRef) => {
+  ({ children, isSelected, withCheckIcons, bg, ...rest }, forwardedRef) => {
     if (!children) return null;
 
     return (
       <RadixSelect.Item
         ref={forwardedRef}
         className={classNames(
-          "flex items-center py-2 font-helvetica text-sm font-light text-white hover:bg-gray-900 data-[highlighted]:bg-gray-900 rounded-md outline-none",
+          "flex items-center py-2 font-helvetica text-sm font-light text-white   rounded-md outline-none",
           {
-            "bg-gray-900": isSelected,
+            "bg-gray-900 hover:bg-gray-900 data-[highlighted]:bg-gray-900":
+              isSelected && bg === "dark",
+            "bg-gray-300 hover:bg-gray-300 data-[highlighted]:bg-gray-300":
+              isSelected && bg === "lighter",
             "px-2": !withCheckIcons,
           }
         )}
@@ -58,18 +63,25 @@ export default function Select(props: SelectProps) {
     label,
     tabIndex,
     withCheckIcons = true,
+    bg = "dark",
     ...rest
   } = props;
+
+  const [shown, setShown] = React.useState(false);
 
   function getValue() {
     return options.find((option) => option.value === rest.value)?.label;
   }
 
   return (
-    <RadixSelect.Root {...rest}>
+    <RadixSelect.Root {...rest} onOpenChange={(open) => setShown(open)}>
       <RadixSelect.Trigger
         className={cn(
-          "group flex border items-center justify-between border-gray-900 rounded-md py-2 px-3 text-sm text-white bg-black gap-2 outline-none focus:border-white overflow-hidden",
+          "group flex border items-center justify-between  rounded-md py-2 px-3 text-sm text-whitegap-2 outline-none focus:border-white overflow-hidden",
+          {
+            "bg-gray-900 border-gray-300": bg === "lighter",
+            "bg-black border-gray-900": bg === "dark",
+          },
           className
         )}
         aria-label={label}
@@ -111,10 +123,17 @@ export default function Select(props: SelectProps) {
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Content
-        className="z-20 w-[100%] overflow-hidden bg-gray-950 mt-2 p-2 rounded-md shadow-gray-800 shadow-sm"
+        className={cn(
+          "z-20 w-[100%] overflow-hidden  mt-2 p-2 rounded-md shadow-gray-800 shadow-sm",
+          {
+            "bg-gray-950": bg === "dark",
+            "bg-gray-800": bg === "lighter",
+          }
+        )}
         position="popper"
         style={{
           width: "var(--radix-select-trigger-width)",
+          maxHeight: "var(--radix-select-content-available-height)",
         }}
         role="listbox"
       >
@@ -126,6 +145,7 @@ export default function Select(props: SelectProps) {
                 value={option.value}
                 isSelected={option.value === rest.value}
                 withCheckIcons={withCheckIcons}
+                bg={bg}
               >
                 {option.label}
               </SelectItem>
