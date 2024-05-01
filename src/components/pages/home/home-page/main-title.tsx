@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function MainTitle() {
   const textIndex = useMotionValue(0);
-  const texts = ["tempo", "music key", "harmonique"];
+  const texts = ["music key", "tempo", "harmonique"];
   const baseText = useTransform(textIndex, (latest) => texts[latest] || "");
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));

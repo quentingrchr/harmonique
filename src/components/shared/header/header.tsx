@@ -1,7 +1,7 @@
 "use client";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Session } from "next-auth";
-import { default as Image } from "next/image";
+import Image from "next/image";
 import NextLink from "next/link";
 import Navigation from "./navigation";
 import Search from "./search";
@@ -25,7 +25,14 @@ export default function Header({ user, signOut, signIn }: Props) {
       {/* Left side */}
       <div className="flex justify-between items-center gap-10">
         <NextLink href="/" passHref>
-          <Image src="/logo.png" alt="logo" height={34} width={34} />
+          <Image
+            src="/logo-harmonique.png"
+            alt="logo"
+            className="translate-y-[1px]"
+            objectFit="contain"
+            width={78}
+            height={12}
+          />
         </NextLink>
         <div className="flex items-center">
           <Navigation />

@@ -29,7 +29,7 @@ export default function Home() {
           </div>
           <Button
             size="lg"
-            className="font-bold m-auto"
+            className="m-auto"
             onClick={() => signIn("spotify")}
           >
             Sign in with Spotify
