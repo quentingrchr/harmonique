@@ -1,19 +1,21 @@
-import { useGetAudioFeatureOfPlaylistTracks } from "@/hooks/use-get-audio-feature-of-playlist-tracks";
-import { PlaylistTrackObject } from "@/libs/spotify/types";
+import { useGetAudioFeatureOfTrackListItems } from "@/hooks/use-get-audio-feature-of-playlist-track-list-items";
 import { trackWithAudioFeaturesToTableTrackEntry } from "@/utils/audio-feature";
 import Table from "../table";
+import { TrackListItem } from "./type";
 
 export default function TracksList({
   tracks,
-  playlistId,
+  musicCollectionId,
 }: {
-  tracks: PlaylistTrackObject[];
-  playlistId: string;
+  tracks: TrackListItem[];
+  musicCollectionId: string;
 }) {
-  const { data, isLoading } = useGetAudioFeatureOfPlaylistTracks(
+  const { data, isLoading, error } = useGetAudioFeatureOfTrackListItems(
     tracks,
-    playlistId
+    musicCollectionId
   );
+
+  console.log({ data, isLoading, error }, "TracksList");
 
   if (isLoading) {
     return null;

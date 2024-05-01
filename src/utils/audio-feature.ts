@@ -1,5 +1,5 @@
 import { TableTrackEntry } from "@/components/pages/collection/table/type";
-import { TrackWithAudioFeatures } from "@/hooks/use-get-audio-feature-of-playlist-tracks/type";
+import { TrackWithAudioFeatures } from "@/hooks/use-get-audio-feature-of-playlist-track-list-items/type";
 import { TonalAccidentalKey, TonalMode } from "@/types";
 
 export function pitchToKey(pitch: number) {

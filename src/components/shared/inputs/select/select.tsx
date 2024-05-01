@@ -67,14 +67,14 @@ export default function Select(props: SelectProps) {
     ...rest
   } = props;
 
-  const [shown, setShown] = React.useState(false);
 
   function getValue() {
     return options.find((option) => option.value === rest.value)?.label;
   }
 
+
   return (
-    <RadixSelect.Root {...rest} onOpenChange={(open) => setShown(open)}>
+    <RadixSelect.Root {...rest}>
       <RadixSelect.Trigger
         className={cn(
           "group flex border items-center justify-between  rounded-md py-2 px-3 text-sm text-whitegap-2 outline-none focus:border-white overflow-hidden",

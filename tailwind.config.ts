@@ -8,6 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        float: "float 5s ease-in-out infinite",
+        floatReverse: "float 5s 1.5s ease-in-out infinite reverse",
+        floatSlow: "float 5s ease-in-out infinite",
+      },
+      keyframes: {
+        float: {
+          "0%": { transform: "translateY(0)" },
+          "50%": { transform: "translate(-25%, -10%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

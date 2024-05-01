@@ -1,5 +1,5 @@
-import Home from "@/components/pages/home/anonymous-home-page";
 import HomeAuth from "@/components/pages/home/auth-home-page";
+import Home from "@/components/pages/home/home-page";
 import { useSession } from "next-auth/react";
 import { Inter } from "next/font/google";
 

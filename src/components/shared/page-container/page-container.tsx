@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { signOut, useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import React from "react";
 import Header from "../header";
 
@@ -13,23 +13,21 @@ export default function PageContainer({
   horizontalMargin = true,
 }: Props) {
   const session = useSession();
-  const hasHeader = session.status === "authenticated";
 
   return (
     <div>
-      {hasHeader && (
-        <Header
-          user={session.data.user}
-          signOut={() => {
-            signOut();
-          }}
-        />
-      )}
+      <Header
+        user={
+          session.status === "authenticated" ? session.data.user : undefined
+        }
+        signOut={() => {
+          signOut();
+        }}
+      />
       <main
         className={cn(
-          "flex min-h-screen flex-col items-center justify-between overflow-x-hidden",
+          "flex min-h-screen flex-col items-center justify-between overflow-x-hidden mt-16",
           {
-            "mt-16": hasHeader,
             "px-16": horizontalMargin,
           }
         )}

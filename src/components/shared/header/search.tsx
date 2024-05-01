@@ -8,7 +8,6 @@ import {
 } from "@/hooks/use-search-a-music-collection/types";
 import NextLink from "next/link";
 import React, { useEffect } from "react";
-import Select from "../inputs/select/select";
 
 function ResultList({
   results,
@@ -67,17 +66,13 @@ function NoResults() {
     </div>
   );
 }
-
-type searchTermType = "all" | "playlist" | "artist";
+type SeachTermType = Exclude<SearchResultPossibleTypes, "track">;
 export default function Search() {
   const [isFocused, setIsFocused] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchTermType, setSearchTermType] = React.useState<
-    SearchResultPossibleTypes | "all"
-  >("all");
   const { searchResults, usersPlaylistResults } = useSearchAMusicCollection(
     searchTerm,
-    searchTermType === "all" ? undefined : searchTermType
+    "playlist"
   );
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -100,26 +95,12 @@ export default function Search() {
 
   return (
     <div className="flex items-center space-x-2">
-      <Select
-        bg="lighter"
-        label="options"
-        options={[
-          { label: "All", value: "all" },
-          { label: "Playlists", value: "playlist" },
-          { label: "Artists", value: "artist" },
-          { label: "Albums", value: "album" },
-        ]}
-        className="min-w-[14ch]"
-        withCheckIcons={false}
-        value={searchTermType}
-        onValueChange={(value) => setSearchTermType(value as searchTermType)}
-      />
       <div
         className="relative scrollbar-thumb-white/25 scrollbar-track-gray-400"
         ref={containerRef}
       >
         <SearchInput
-          placeholder="Search for a playlist or an artist"
+          placeholder="Search for a playlist"
           className="w-72"
           onFocus={() => setIsFocused(true)}
           value={searchTerm}
