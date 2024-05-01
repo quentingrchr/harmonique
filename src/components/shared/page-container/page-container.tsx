@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { useSession, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import Header from "../header";
 
@@ -22,6 +22,9 @@ export default function PageContainer({
         }
         signOut={() => {
           signOut();
+        }}
+        signIn={() => {
+          signIn("spotify");
         }}
       />
       <main

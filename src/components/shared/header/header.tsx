@@ -1,7 +1,6 @@
 "use client";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Session } from "next-auth";
-import { signIn } from "next-auth/react";
 import { default as Image } from "next/image";
 import NextLink from "next/link";
 import Navigation from "./navigation";
@@ -20,7 +19,7 @@ function Avatar({ img }: { img: string }) {
     </div>
   );
 }
-export default function Header({ user, signOut }: Props) {
+export default function Header({ user, signOut, signIn }: Props) {
   return (
     <header className="px-12 bg-gray-900 top-0 fixed w-full h-16 flex justify-between items-center border-b-neutral-600 border-b z-50">
       {/* Left side */}
