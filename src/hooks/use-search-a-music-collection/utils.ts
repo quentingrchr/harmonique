@@ -74,7 +74,6 @@ export function aggregateResults(
 
   if (tracks && tracks.items.length) {
     tracks.items.forEach((track) => {
-      console.log(track);
       results.push({
         id: track.id,
         searchTerms: [track.name, track.artists[0].name],

@@ -23,8 +23,9 @@ export default function PlaylistPage({ id }: { id: string }) {
           type="playlist"
           songsCount={data.tracks.total}
           featuredArtists={getFeaturedArtistsFromPlaylistObject(data)}
+          spotifyUrl={data.external_urls.spotify}
         />
-        <TracksList tracks={trackListItems} playlistId={id} />
+        <TracksList tracks={trackListItems} musicCollectionId={id} />
       </div>
     </PageContainer>
   );

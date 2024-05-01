@@ -11,22 +11,22 @@ export default function Home() {
         <div className="flex flex-col gap-12">
           <PlaylistsSlider
             isLoading={users.isLoading}
-            title="Your playlists"
+            title="Your Spotify playlists"
             items={users.items}
           />
           <PlaylistsSlider
             isLoading={featured.isLoading}
-            title="Today's featured"
+            title="Spotify Today's featured"
             items={featured.items}
           />
           <PlaylistsSlider
             isLoading={chill.isLoading}
-            title="Chill"
+            title="Spotify Chill"
             items={chill.items}
           />
           <PlaylistsSlider
             isLoading={party.isLoading}
-            title="Party"
+            title="Spotify Party"
             items={party.items}
           />
         </div>

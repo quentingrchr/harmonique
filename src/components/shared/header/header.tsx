@@ -73,7 +73,19 @@ export default function Header({ user, signOut, signIn }: Props) {
             )}
           </>
         ) : (
-          <button onClick={() => signIn && signIn()}>Log in</button>
+          <button
+            className="cursor-pointer flex gap-2 justify-center items-center"
+            onClick={() => signIn && signIn()}
+          >
+            Log in
+            <Image
+              src="/spotify-guideline-logo.png"
+              alt="spotify logo"
+              className="w-4 h-4"
+              width={16}
+              height={16}
+            />
+          </button>
         )}
       </div>
     </header>

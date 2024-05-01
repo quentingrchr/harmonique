@@ -15,7 +15,6 @@ export default function TracksList({
     musicCollectionId
   );
 
-  console.log({ data, isLoading, error }, "TracksList");
 
   if (isLoading) {
     return null;

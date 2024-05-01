@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,7 +32,7 @@ function SliderSkeleton() {
           key={slide}
           className="flex flex-col items-center justify-center gap-2 p-3 box-content"
         >
-          <div className="flex gap-2 w-[200px] h-[200px] bg-gray-400 rounded-md"></div>
+          <div className="flex gap-2 w-[200px] h-[200px] bg-gray-400 rounded-none"></div>
           <div className="flex flex-col gap-2 w-full h-[46px] rounded-md relative">
             <div className="h-[14px] top-[4px] w-2/3 bg-gray-400 rounded-md absolute"></div>
             <div className="w-1/4 h-[10px] bg-gray-400 rounded-md opacity-80 absolute top-[32px]"></div>
@@ -53,6 +54,13 @@ export default function PlaylistsSlider({
       <div className="flex justify-start items-center max-w-[1000px] ml-12">
         <h3 className="text-4xl relative w-auto font-semibold">
           <span className="relative z-10">{title}</span>
+          <Image
+            src="/spotify-guideline-logo.png"
+            alt="spotify icon"
+            className="w-8 h-8 ml-4 inline-block relative z-10"
+            width={40}
+            height={40}
+          />
           <span className="absolute h-3 w-7 bg-brand -bottom-0.5 -left-1 z-0"></span>
         </h3>
       </div>
@@ -72,17 +80,17 @@ export default function PlaylistsSlider({
               className="flex"
               style={{ width: "auto" }}
             >
-              <div className="flex justify-center items-center hover:bg-gray-900 group p-3 rounded-md">
+              <div className="flex justify-center items-center hover:bg-gray-900 group p-3 rounded-none">
                 <div className="flex flex-col gap-2 cursor-pointer relative overflow-hidden max-w-[200px]">
                   <Link
                     className="absolute top-0 left-0 bottom-0 right-0 w-full h-full opacity-0 z-20"
                     href={`/collection/playlist/${item.id}`}
                   ></Link>
-                  <div className="w-[200px] h-[200px] bg-gray-400 rounded-md overflow-hidden">
+                  <div className="w-[200px] h-[200px] bg-gray-400 rounded-none overflow-hidden">
                     <img
                       src={item.img.src}
                       alt={item.img.alt}
-                      className="w-[200px] h-[200px] object-cover transition-all duration-100 rounded-md group-hover:scale-105"
+                      className="w-[200px] h-[200px] object-cover transition-all duration-100 rounded-none"
                     />
                   </div>
                   <div className="flex flex-col w-full overflow-hidden text-ellipsis gap-0.5 min-h-[46px]">

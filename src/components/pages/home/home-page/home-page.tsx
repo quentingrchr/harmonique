@@ -2,6 +2,7 @@ import Button from "@/components/shared/button";
 import PageContainer from "@/components/shared/page-container/page-container";
 import { signIn, useSession } from "next-auth/react";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import MainTitle from "./main-title";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,10 +30,17 @@ export default function Home() {
           </div>
           <Button
             size="lg"
-            className="m-auto"
+            className="m-auto flex items-center justify-center gap-2"
             onClick={() => signIn("spotify")}
           >
-            Sign in with Spotify
+            <span>Sign in with Spotify</span>
+            <Image
+              src="/spotify-guideline-logo.png"
+              alt="spotify logo"
+              className="w-6 h-6"
+              width={24}
+              height={24}
+            />
           </Button>
         </div>
       </div>

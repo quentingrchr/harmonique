@@ -1,16 +1,57 @@
 import PageContainer from "@/components/shared/page-container/page-container";
+import { useState } from "react";
 
-function Link({ children, href }: { children: React.ReactNode; href: string }) {
+function Link({
+  children,
+  href,
+  onClick,
+  target,
+}: {
+  children: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
+  target?: string;
+}) {
+  if (onClick)
+    return (
+      <button
+        onClick={onClick}
+        className="text-brand hover:underline cursor-pointer"
+      >
+        {children}
+      </button>
+    );
+
   return (
     <a
       href={href}
-      target="_blank"
+      target={target}
       rel="noreferrer"
-      className="text-brand hover:underline"
+      className="text-brand hover:underline cursor-pointer"
     >
       {children}
     </a>
   );
+}
+
+function CypherEmail() {
+  const [isCypher, setIsCypher] = useState(true);
+  const domain = "gmail.com";
+  const user = "q.grancher";
+
+  if (isCypher) {
+    return (
+      <Link
+        onClick={() => {
+          setIsCypher(false);
+        }}
+      >
+        email
+      </Link>
+    );
+  } else {
+    return <Link href={`mailto:${user}@${domain}`}>{`${user}@${domain}`}</Link>;
+  }
 }
 
 export default function AboutPage() {
@@ -64,7 +105,10 @@ export default function AboutPage() {
         <div className="mb-6">
           <p className="text-lg">
             This is a web application that leverages the{" "}
-            <Link href="https://developer.spotify.com/documentation">
+            <Link
+              href="https://developer.spotify.com/documentation"
+              target="_blank"
+            >
               Spotify API
             </Link>{" "}
             to access and analyze your Spotify playlists. By connecting your
@@ -102,13 +146,13 @@ export default function AboutPage() {
         <p className="text-lg mb-6">
           Feedbacks are welcome, whether you have suggestions, feature requests,
           or bug reports. You can provide feedback directly on the{" "}
-          <Link href="">GitHub repository</Link> or reach out via{" "}
-          <Link href="">email</Link>.
+          <Link href="" target="_blank">
+            GitHub repository
+          </Link>{" "}
+          or reach out via <CypherEmail />.
         </p>
 
-        <p className="text-lg mb-4">
-          Developed with 💜 and independently by me.
-        </p>
+        <p className="text-lg mb-4">Developed with 💜 by me.</p>
       </div>
     </PageContainer>
   );

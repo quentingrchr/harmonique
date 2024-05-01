@@ -11,7 +11,6 @@ export function useGetAudioFeatureOfTrackListItems(
   trackListItems: TrackListItem[],
   id: string
 ) {
-  console.log({ trackListItems });
   const [tracks, setTracks] = useState<TrackWithAudioFeatures[]>([]);
   const client = getClient();
   const {
@@ -34,15 +33,6 @@ export function useGetAudioFeatureOfTrackListItems(
   });
 
   useEffect(() => {
-    console.log(
-      {
-        res,
-        error,
-        isLoading,
-      },
-      "useGetAudioFeatureOfTrackListItems"
-    );
-
     if (res?.data && res?.data.audio_features.length > 0) {
       const tracks = res.data.audio_features.map((audioFeature) => {
         const playlistTrackInfoIndex = trackListItems.findIndex(
