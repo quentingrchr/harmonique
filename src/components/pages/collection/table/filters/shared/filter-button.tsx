@@ -14,7 +14,7 @@ const FilterButton = forwardRef<HTMLButtonElement, Props>(
       <button
         ref={ref}
         className={cn(
-          "group flex border items-center justify-between border-gray-900 rounded-md py-2 px-3 text-sm text-white bg-black gap-2 outline-none overflow-hidden",
+          "group flex border items-center justify-between border-gray-900 rounded-md py-2 px-3 text-sm text-white bg-gray-900 gap-2 outline-none overflow-hidden",
           {
             "bg-brand focus:border-brand": isActive,
             "focus:border-white": !isActive,

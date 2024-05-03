@@ -43,7 +43,7 @@ export default function Pagination<T>({
   }
 
   return (
-    <div className="flex items-center justify-between  bg-black px-4 py-4 sm:px-0 text-white border-b border-neutral-800">
+    <div className="flex items-center justify-between  bg-gray-950 px-4 py-4 sm:px-0 text-white border-b border-neutral-800">
       <div className="flex flex-1 justify-between sm:hidden">
         <NavArrow direction="prev" />
         <NavArrow direction="next" />

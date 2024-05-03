@@ -19,7 +19,7 @@ export default function CollectionHeader() {
             <div className="text-4xl sm:text-4xl font-bold h-8 w-[8ch] bg-gray-800 animate-pulse" />
             <div className="text-xs font-thin w-[10ch] bg-gray-900 animate-pulse h-3" />
           </div>
-          <div className="text-xs font-extralight leading-none h-3 w-[20ch] bg-gray-950 animate-pulse"></div>{" "}
+          <div className="text-xs font-extralight leading-none h-3 w-[20ch] bg-gray-900 animate-pulse"></div>{" "}
         </div>
       </div>
     </div>

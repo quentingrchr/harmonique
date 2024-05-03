@@ -1,5 +1,6 @@
 "use client";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import cn from "classnames";
 import { Session } from "next-auth";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -10,6 +11,7 @@ interface Props {
   user?: NonNullable<Session["user"]>;
   signOut?: () => void;
   signIn?: () => void;
+  transparent?: boolean;
 }
 
 function Avatar({ img }: { img: string }) {
@@ -19,9 +21,17 @@ function Avatar({ img }: { img: string }) {
     </div>
   );
 }
-export default function Header({ user, signOut, signIn }: Props) {
+export default function Header({ user, signOut, signIn, transparent }: Props) {
   return (
-    <header className="px-12 bg-gray-900 top-0 fixed w-full h-16 flex justify-between items-center border-b-neutral-600 border-b z-50">
+    <header
+      className={cn(
+        "px-12 top-0 fixed w-full h-16 flex justify-between items-center b z-50",
+        {
+          "bg-gray-950 border-b-neutral-600 border-b": !transparent,
+          "bg-transparent": transparent,
+        }
+      )}
+    >
       {/* Left side */}
       <div className="flex justify-between items-center gap-10">
         <NextLink href="/" passHref>

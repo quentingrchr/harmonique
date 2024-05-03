@@ -132,7 +132,7 @@ export default function TempoFilter({
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
         sideOffset={5}
-        className="bg-gray-950 rounded-xl flex flex-col z-50"
+        className="bg-gray-900 rounded-xl flex flex-col z-50"
       >
         <div className="flex flex-col gap-4 px-4 pt-4 pb-4 text-sm">
           <form>

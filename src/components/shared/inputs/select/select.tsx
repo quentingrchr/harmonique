@@ -80,7 +80,7 @@ export default function Select(props: SelectProps) {
           "group flex border items-center justify-between  rounded-md py-2 px-3 text-sm text-whitegap-2 outline-none focus:border-white overflow-hidden",
           {
             "bg-gray-900 border-gray-300": bg === "lighter",
-            "bg-black border-gray-900": bg === "dark",
+            "bg-950 border-gray-900": bg === "dark",
           },
           className
         )}

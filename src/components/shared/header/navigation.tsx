@@ -1,6 +1,6 @@
 "use client";
 
-import routes from "@/constants/routes";
+import { headerNavigation } from "@/constants/navigation";
 import cn from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,27 +27,11 @@ function Item(
   );
 }
 
-const NavItems = [
-  {
-    label: "Home",
-    href: routes.HOME,
-  },
-  {
-    label: "About",
-    href: routes.ABOUT,
-  },
-  {
-    label: "Github",
-    href: routes.GITHUB,
-    target: "_blank",
-  },
-];
-
 export default function Navigation() {
   const pathname = usePathname();
   return (
     <div className="flex gap-6">
-      {NavItems.map((item) => (
+      {headerNavigation.map((item) => (
         <Item key={item.label} {...item} isActive={pathname === item.href} />
       ))}
     </div>

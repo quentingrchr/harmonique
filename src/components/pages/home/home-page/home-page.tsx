@@ -11,7 +11,7 @@ export default function Home() {
   const session = useSession();
 
   return (
-    <PageContainer horizontalMargin>
+    <PageContainer horizontalMargin transparentHeader>
       <div className="min-h-screen flex flex-col items-center justify-center min-w-full relative">
         <div className="w-[330px] h-[225px] bg-brand rounded-md blur-[190px] left-0 absolute top-0 animate-float"></div>
         <div className="w-[330px] h-[225px] bg-brand rounded-md blur-[190px] right-0 absolute top-1/2 animate-floatReverse"></div>
