@@ -19,14 +19,14 @@ export const headerNavigation = [
 export const foooterNavigationAbout = [
   {
     label: "Privacy Policy",
-    href: `${routes.ABOUT}#privacy-policy`,
+    href: `${routes.ABOUT}#privacy`,
   },
   {
     label: "What is harmonique?",
-    href: `${routes.ABOUT}#what-is-harmonique`,
+    href: `${routes.ABOUT}#what`,
   },
   {
     label: "Why create harmonique?",
-    href: `${routes.ABOUT}#why-create-harmonique`,
+    href: `${routes.ABOUT}#why`,
   },
 ] as const;

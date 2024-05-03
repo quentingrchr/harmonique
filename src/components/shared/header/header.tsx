@@ -27,7 +27,7 @@ export default function Header({ user, signOut, signIn, transparent }: Props) {
       className={cn(
         "px-12 top-0 fixed w-full h-16 flex justify-between items-center b z-50",
         {
-          "bg-gray-950 border-b-neutral-600 border-b": !transparent,
+          "bg-gray-900 border-b-neutral-600 border-b": !transparent,
           "bg-transparent": transparent,
         }
       )}

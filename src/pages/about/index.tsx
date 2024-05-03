@@ -57,13 +57,16 @@ function CypherEmail() {
 export default function AboutPage() {
   return (
     <PageContainer horizontalMargin>
-      <div className="container mx-auto py-8 max-w-xl">
-        <h1 className="text-5xl font-bold mb-10 relative">
+      <div className="container mx-auto py-8 max-w-xl text-white/80">
+        <h1 className="text-5xl font-bold mb-10 relative text-white">
           <span className="absolute h-3 w-7 bg-brand -bottom-1 -left-2 -z-10"></span>
           About Harmonique
         </h1>
 
-        <h2 className="text-3xl font-semibold mb-8 border-b border-white pb-2">
+        <h2
+          className="text-3xl font-semibold mb-8 border-b border-white pb-2 text-white"
+          id="why"
+        >
           Why create Harmonique?
         </h2>
         <p className="text-lg mb-6">
@@ -99,7 +102,10 @@ export default function AboutPage() {
           harmonious blends, Harmonique is designed to help you find the songs.
         </p>
 
-        <h2 className="text-3xl font-semibold mb-8 border-b border-white pb-2">
+        <h2
+          className="text-3xl font-semibold mb-8 border-b border-white pb-2 text-white"
+          id="what"
+        >
           What is Harmonique?
         </h2>
         <div className="mb-6">
@@ -118,7 +124,10 @@ export default function AboutPage() {
             need for your creative projects.
           </p>
 
-          <h2 className="text-3xl font-semibold mb-8 mt-8 border-b border-white pb-2">
+          <h2
+            className="text-3xl font-semibold mb-8 mt-8 border-b border-white pb-2 text-white"
+            id="privacy"
+          >
             About privacy
           </h2>
           <p className="text-lg mb-4">
@@ -140,7 +149,7 @@ export default function AboutPage() {
             Spotify API.
           </p>
         </div>
-        <h2 className="text-3xl font-semibold mb-8 border-b border-white pb-2">
+        <h2 className="text-3xl font-semibold mb-8 border-b border-white pb-2 text-white">
           Feedback and support
         </h2>
         <p className="text-lg mb-6">
