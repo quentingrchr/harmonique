@@ -49,7 +49,7 @@ export default function Filters({
     | undefined;
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col sm:px-auto px-4">
       <div className="w-full flex justify-between">
         <div className="flex h-auto gap-4">
           <KeySignatureFilter

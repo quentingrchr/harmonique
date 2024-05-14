@@ -59,7 +59,7 @@ const Search = React.forwardRef<HTMLInputElement, InputProps>(
           }}
           type={type}
           className={cn(
-            "bg-transparent flex w-full transition-colors file:border-0 placeholder:text-muted-text focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            "bg-transparent flex w-full min-w-0 transition-colors file:border-0 placeholder:text-muted-text focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           ref={ref}

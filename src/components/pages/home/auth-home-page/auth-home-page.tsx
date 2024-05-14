@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <PageContainer horizontalMargin={false}>
       <main className="py-12 w-full">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-4 md:gap-12">
           <PlaylistsSlider
             isLoading={users.isLoading}
             title="Your Spotify playlists"

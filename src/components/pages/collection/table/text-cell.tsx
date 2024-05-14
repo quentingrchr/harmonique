@@ -32,7 +32,7 @@ export default function TextCell({
 }) {
   return (
     <div className="flex flex-row items-center gap-3">
-      <p className="text-lg font-thin leading-none">{text}</p>
+      <p className="text-xs sm:text-lg font-thin leading-none">{text}</p>
       {percent && (
         <Badge percent={percent} title={"This is a percentage of accuracy"} />
       )}

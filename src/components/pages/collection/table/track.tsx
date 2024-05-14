@@ -14,9 +14,9 @@ export default function Track({
   title: string;
 }) {
   return (
-    <div className="flex gap-3 px-5">
+    <div className="flex gap-3 sm:px-5">
       <Image
-        className="h-9 w-9 rounded-none"
+        className="size-6 md:size-9 rounded-none"
         width={100}
         height={100}
         src={image.url || DEFAULT_ARTWORK}
@@ -25,13 +25,13 @@ export default function Track({
       />
       <div className="flex flex-col justify-between py-[2px] overflow-hidden">
         <p
-          className="text-sm font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full"
+          className="text-xs sm:text-sm font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full"
           title={title}
         >
           {title}
         </p>
         <p
-          className="text-sm font-thin leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full"
+          className="text-xs sm:text-sm font-thin leading-none whitespace-nowrap overflow-hidden text-ellipsis w-full"
           title={artists.join(", ")}
         >
           {artists.join(", ")}

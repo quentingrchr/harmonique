@@ -1,5 +1,6 @@
 import Button from "@/components/shared/button";
 import useCollectionFilters from "@/hooks/use-collection-filters";
+import useGetWindowLayout from "@/hooks/use-get-window-layout";
 import { getKeySignatureNotation } from "@/utils/tonal-keys";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import {
@@ -36,6 +37,7 @@ const columns: ColumnDef<TableTrackEntry>[] = [
   {
     accessorKey: "track",
     header: "Track",
+    minSize: 100,
     cell: (props) => {
       const value = props.cell.getValue<TableTrackEntry["track"]>();
       return <Track {...value} />;
@@ -144,6 +146,7 @@ const columns: ColumnDef<TableTrackEntry>[] = [
 export default function Table({ data }: Props) {
   const [sortingState, setSortingState] = useState<SortingState>([]);
   const { filters, dispatch } = useCollectionFilters();
+  const layout = useGetWindowLayout();
 
   const table = useReactTable({
     data,
@@ -224,15 +227,20 @@ export default function Table({ data }: Props) {
         filters={filters}
       />
 
-      <div className="mt-7 flex flex-col">
+      <div className="mt-7 flex flex-col overflow-scroll sm:overflow-auto sm:px-0 px-5">
         <table className="w-full table-fixed">
-          <thead>
+          <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="text-left text-sm py-4 border-t border-b border-neutral-800 font-light opacity-90"
+                    className="text-left text-xs sm:text-sm py-4 border-t border-b border-neutral-800 font-light opacity-90"
+                    style={
+                      layout === "desktop"
+                        ? {}
+                        : { width: `${header.getSize()}px` }
+                    }
                   >
                     <div
                       className="flex items-center gap-2 select-none cursor-pointer"
@@ -254,7 +262,7 @@ export default function Table({ data }: Props) {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="overflow-scroll">
             <Rows
               rows={table.getRowModel().rows}
               resetFilters={() => {

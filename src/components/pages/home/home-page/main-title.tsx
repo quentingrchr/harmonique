@@ -37,7 +37,7 @@ export default function MainTitle() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <h1 className="text-7xl relative">
+    <h1 className="text-4xl md:text-7xl relative">
       <span className="relative z-10">
         <strong>Find</strong> songs by
         <span className="absolute h-6 w-12 bg-brand bottom-1 -left-5 -z-10"></span>

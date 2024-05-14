@@ -17,7 +17,7 @@ interface Props {
 function Avatar({ img }: { img: string }) {
   return (
     <div className="flex-shrink-0">
-      <img className="h-6 w-6 rounded-full" src={img} alt="" />
+      <img className="size-6 rounded-full" src={img} alt="" />
     </div>
   );
 }
@@ -25,7 +25,7 @@ export default function Header({ user, signOut, signIn, transparent }: Props) {
   return (
     <header
       className={cn(
-        "px-12 top-0 fixed w-full h-16 flex justify-between items-center b z-50",
+        "px-6 md:px-12 top-0 fixed w-full h-16 flex justify-between items-center b z-50",
         {
           "bg-gray-900 border-b-neutral-600 border-b": !transparent,
           "bg-transparent": transparent,
@@ -34,7 +34,7 @@ export default function Header({ user, signOut, signIn, transparent }: Props) {
     >
       {/* Left side */}
       <div className="flex justify-between items-center gap-10">
-        <NextLink href="/" passHref>
+        <NextLink href="/" passHref className="md:block hidden">
           <Image
             src="/logo-harmonique.png"
             alt="logo"
@@ -84,14 +84,14 @@ export default function Header({ user, signOut, signIn, transparent }: Props) {
           </>
         ) : (
           <button
-            className="cursor-pointer flex gap-2 justify-center items-center"
+            className="cursor-pointer flex gap-2 justify-center items-center whitespace-nowrap"
             onClick={() => signIn && signIn()}
           >
             Log in
             <Image
               src="/spotify-guideline-logo.png"
               alt="spotify logo"
-              className="w-4 h-4"
+              className="size-4"
               width={16}
               height={16}
             />

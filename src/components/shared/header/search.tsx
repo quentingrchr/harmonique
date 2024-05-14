@@ -20,7 +20,7 @@ function ResultList({
     return <NoResults />;
   }
   return (
-    <ul className="flex flex-col gap-3 px-2 py-4 max-h-[600px] w-72 overflow-y-auto scrollbar-thin">
+    <ul className="flex flex-col gap-3 px-2 py-4 max-h-[600px] md:w-72 w-40 overflow-y-auto scrollbar-thin">
       {headerText && (
         <li>
           <p className="text-sm text-neutral-400">{headerText}</p>
@@ -41,7 +41,7 @@ function ResultList({
               className="h-7 w-7 rounded-md"
             />
             <div className="w-full overflow-hidden">
-              <p className="text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+              <p className="text-sm font-medium whitespace-nowrap overflow-hidden text-ellipsis w-full">
                 {item.title}
               </p>
               {item.type === "track" ? (
@@ -101,7 +101,7 @@ export default function Search() {
       >
         <SearchInput
           placeholder="Search for a playlist"
-          className="w-72"
+          className="md:w-72 w-40"
           onFocus={() => setIsFocused(true)}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

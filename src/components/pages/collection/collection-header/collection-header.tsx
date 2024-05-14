@@ -27,11 +27,11 @@ export default function CollectionHeader({
     return songsCount === 1 ? "1 song" : `${songsCount} songs`;
   }
   return (
-    <div className="w-full">
+    <div className="w-full px-10 sm:px-auto box-border  ">
       <div className="flex sm:flex-row flex-col gap-2 items-start">
-        <div className="w-full flex-shrink-0 sm:w-[92px] sm:h-[92px] rounded-none">
+        <div className="w-full flex-shrink h-auto sm:w-[92px] sm:h-[92px] rounded-none">
           <img
-            className="h-[92px] w-[92px] object-cover object-center rounded-none"
+            className="w-full h-auto sm:w-[92px] sm:h-[92px] object-cover object-center rounded-none"
             src={cover}
             alt={`Cover artwork of ${title}`}
             height={500}
@@ -41,7 +41,7 @@ export default function CollectionHeader({
 
         <div className="flex flex-col text-white h-full sm:min-h-[92px] justify-between">
           <div className="flex flex-col-reverse items-stretch justify-stretch">
-            <h1 className="text-4xl sm:text-4xl font-bold" title={title}>
+            <h1 className="text-3xl sm:text-4xl font-bold" title={title}>
               {title}
             </h1>
             <p className="text-xs font-thin">{getMusicCollectionLabel(type)}</p>
@@ -49,7 +49,7 @@ export default function CollectionHeader({
           <div></div>
           <div className="flex items-center gap-1"></div>
           <p
-            className="text-xs font-extralight leading-none"
+            className="text-xs font-extralight leading-none my-2 sm:my-0"
             title={featuredArtists.join(", ")}
           >
             {spotifyUrl && (
