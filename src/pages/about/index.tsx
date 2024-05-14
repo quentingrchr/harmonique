@@ -87,8 +87,7 @@ export default function AboutPage() {
   return (
     <PageContainer horizontalMargin>
       <div className="container mx-auto py-8 max-w-xl text-white/80">
-        <h1 className="text-5xl font-bold mb-10 relative text-white">
-          <span className="absolute h-3 w-7 bg-brand -bottom-1 -left-2 -z-10"></span>
+        <h1 className="text-5xl font-bold mb-10 relative text-gray-950 bg-brand text-center py-3 w-fit mx-auto px-8 rounded-md">
           About Harmonique
         </h1>
 
@@ -145,7 +144,7 @@ export default function AboutPage() {
             need for your creative projects.
           </p>
         </Section>
-        <Section title="About privacy" id="privacy">
+        <Section title="Privacy" id="privacy">
           <p className="text-lg mb-4">
             Harmonique will request the following Spotify scopes from your
             account
@@ -164,7 +163,10 @@ export default function AboutPage() {
             store any user data, and all data is fetched directly from the
             Spotify API.
           </p>
-          <p>No data is stored on any server or database.</p>
+          <p className="text-lg mt-4">
+            Harmonoque is a personal project and is any user data, and all data
+            is fetched directly from the Spotify API.
+          </p>
         </Section>
         <Section title="Feedback and support" id="feedback">
           <p className="text-lg mb-6">
